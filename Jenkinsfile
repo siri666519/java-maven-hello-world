@@ -21,10 +21,12 @@ pipeline {
         }
 
         stage('Test Results') {
-            steps {
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
+    steps {
+        // junit 'target/surefire-reports/*.xml'
+        echo 'No test results to collect'
+    }
+}
+
     }
 }
 

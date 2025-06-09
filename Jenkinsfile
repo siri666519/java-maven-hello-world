@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/siri666519/java-maven-hello-world.git'
+                git branch: 'main', url: 'https://github.com/siri666519/java-maven-hello-world.git'
             }
         }
 

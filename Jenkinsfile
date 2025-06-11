@@ -1,26 +1,24 @@
-{
-    def mvnHome
-    stage('Preparation') { // for display purposes
-        // Get some code from a GitHub repository
-        git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-        // Get the Maven tool.
-        // ** NOTE: This 'M3' Maven tool must be configured
-        // **       in the global configuration.
-        mvnHome = tool 'Maven381'
+pipeline {
+    agent any
+
+    tools {
+        maven 'MAVEN_HOME'  // Make sure you define this Maven tool in Jenkins Global Tool Config
+        jdk 'JAVA_HOME'     // Also define JDK in Jenkins tools
     }
-    stage('Build') {
-        // Run the maven build
-        withEnv(["MVN_HOME=$mvnHome"]) {
-            if (isUnix()) {
-                sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
-            } else {
-                bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/siri666519/java-maven-hello-world.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
             }
         }
     }
-    stage('Results') {
-        junit '**/target/surefire-reports/TEST-*.xml'
-        archiveArtifacts 'target/*.jar'
-    }
 }
+
 

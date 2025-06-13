@@ -2,15 +2,14 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.1'     // This matches your configured tool name
-        jdk 'JDK 11'            // Make sure this is the correct JDK name in your Jenkins too
+        maven 'Maven 3.8.1'     // Must match Jenkins tool name
+        jdk 'JDK 11'            // Must match Jenkins tool name
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/siri666519/java-maven-hello-world.git'
-
+                git url: 'https://github.com/siri666519/java-maven-hello-world.git', branch: 'main'
             }
         }
 
@@ -21,6 +20,7 @@ pipeline {
         }
     }
 }
+
 
 
 
